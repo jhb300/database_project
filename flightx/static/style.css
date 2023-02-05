@@ -72,7 +72,7 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
-    min-height: calc(100vh - 175px);
+    min-height: calc(100vh - 179px);
 }
 
 footer {
