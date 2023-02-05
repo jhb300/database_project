@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Passenger{% endblock %}
+
+{% block content %}
+
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Notes</th>
+        </tr>
+        {% for passenger in object_list %}
+        <tr>
+            <td>{{ passenger.first_name }} {{ passenger.last_name }}</td>
+            <td>{{ passenger.get_status_display }}</td>
+            <td>{{ passenger.notes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

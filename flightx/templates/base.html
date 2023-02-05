@@ -3,29 +3,59 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Flight Management System</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <title>{% block title %}{% endblock %}{% if request.resolver_match.url_name == 'Home' %}Startpage{% endif %} - FMS</title>
   <link rel="shortcut icon" type="image/png" href="{% static 'logo.png' %}"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <header>
-    <div class="brand">
+    <a href="{% url 'Home' %}" class="brand">
       <img src="{% static 'logo.png' %}" alt="Company Logo">
-      <div class="brand-name"> FlightX</div>
-    </div>
+      <div class="brand-name"> Flight<div class="last-letter">X</div></div>
+    </a>
     <nav>
+      {% if request.resolver_match.url_name == 'Home' %}
       <ul>
-        <li><a href="#flights">Flights</a></li>
-        <li><a href="#aircrafts">Aircrafts</a></li>
-        <li><a href="#passengers">Passengers</a></li>
-        <li><a href="#crew">Crew</a></li>
-        <li><a href="#airports">Airports</a></li>
+        <li><a href="{% url 'Flights' %}">Airline</a></li>
+        <li><a href="#">Airport</a></li>
       </ul>
+      {% else %}
+      <ul>
+        <li><a {% if request.resolver_match.url_name == 'Aircrafts' %}class="active"{% endif %} href="{% url 'Aircrafts' %}">Aircrafts</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Airports' %}class="active"{% endif %} href="{% url 'Airports' %}">Airports</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Assingments' %}class="active"{% endif %} href="{% url 'Assignments' %}">Assignments</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Bookings' %}class="active"{% endif %} href="{% url 'Bookings' %}">Bookings</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Employees' %}class="active"{% endif %} href="{% url 'Employees' %}">Crew</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Flights' %}class="active"{% endif %} href="{% url 'Flights' %}">Flights</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Passengers' %}class="active"{% endif %} href="{% url 'Passengers' %}">Passengers</a></li>
+      </ul>
+      {% endif %}
     </nav>
   </header>
 
   <main>
-    {% block content %}{% endblock %}
+    {% if request.resolver_match.url_name == 'Home' %}
+      <!-- Startpage content -->
+      <div class="startpage-content">
+        <h1>Welcome to FlightX!</h1>
+        <p>Are you from an...</p>
+        <div class="select-content">
+          <a href="{% url 'Flights' %}" class="btn">Airline</a>
+          or
+          <a href="#" class="btn">Airport</a>
+        </div>
+      </div>
+    {% else %}
+      {% block content %}{% endblock %}
+    {% endif %}
   </main>
 
   <footer>

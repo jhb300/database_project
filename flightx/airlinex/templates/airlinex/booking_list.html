@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Bookings{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Flight</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Passenger</th>
+            <th>Passenger Notes</th>
+        </tr>
+        {% for booking in object_list %}
+        <tr>
+            <td>{{ booking.flight.number }}</td>
+            <td>{{ booking.flight.departure_airport.name }}</td>
+            <td>{{ booking.flight.destination_airport.name }}</td>
+            <td>{{ booking.passenger.first_name }} {{ booking.passenger.last_name }}</td>
+            <td>{{ booking.passenger.notes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

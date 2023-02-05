@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Crew{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Role</th>
+        </tr>
+        {% for employee in object_list %}
+        <tr>
+            <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.get_role_display }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

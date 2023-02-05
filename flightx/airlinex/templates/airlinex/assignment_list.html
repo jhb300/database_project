@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Assignments{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Flight</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Assignee</th>
+            <th>Role</th>
+        </tr>
+        {% for assignment in object_list %}
+        <tr>
+            <td>{{ assignment.flight.number }}</td>
+            <td>{{ assignment.flight.departure_airport.name }}</td>
+            <td>{{ assignment.flight.destination_airport.name }}</td>
+            <td>{{ assignment.employee.first_name }} {{ assignment.employee.last_name }}</td>
+            <td>{{ assignment.employee.get_role_display }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

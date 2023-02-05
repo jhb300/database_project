@@ -1,12 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 header {
     background-color: #333;
-    color: #fff;
     display: flex;
     justify-content: space-between;
     padding: 1rem 0;
@@ -19,6 +18,7 @@ header .brand {
     display: inline-flex;
     align-items: center;
     margin: 2px 12px;
+    text-decoration: none;
 }
 
 header .brand img {
@@ -29,6 +29,13 @@ header .brand-name {
     color: white;
     font-size: 22px;
     margin-left: 6px;
+    display: inline-flex;
+}
+header .brand-name .last-letter {
+    color: rgb(255, 238, 0);
+    padding: 0;
+    margin: 0;
+    margin-left: 1px;
 }
 
 header nav ul {
@@ -42,6 +49,19 @@ header nav ul li {
     margin: 0 1rem;
 }
 
+header nav ul li a {
+    color: white;
+    transition: 0.25s;
+}
+
+header nav ul li a.active {
+    color: rgb(255, 238, 0);
+}
+
+header nav ul li a:hover {
+    color: rgb(255, 238, 0);
+}
+
 header nav a {
     color: #fff;
     text-decoration: none;
@@ -52,6 +72,7 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
+    min-height: calc(100vh - 175px);
 }
 
 footer {
@@ -66,10 +87,40 @@ footer p {
     margin: 0;
 }
 
+/* Base template startpage content */
+.startpage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select-content {
+    display: inline-flex;
+    align-items: center;
+}
+
+.select-content .btn {
+    background-color: #333;
+    color: white;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition-timing-function: ease-in-out;
+    transition: 0.3s;
+}
+.select-content .btn:hover {
+    transform: scale(1.05);
+}
 
 /* Child template styles */
 .table-container {
     width: 100%;
+    height: 100%;
     max-width: 1400px;
     display: flex;
     align-items: center;

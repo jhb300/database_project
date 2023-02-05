@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from airlinex.views import FlightListView
+from airlinex.views import FlightListView, AircraftListView, AssignmentListView, BookingListView, PassengerListView, EmployeeListView, AirportListView, StartpageView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('flights/', FlightListView.as_view()),
+    path('', StartpageView.as_view(), name='Home'),
+    path('startpage/', StartpageView.as_view(), name='Home'),
+    path('aircrafts/', AircraftListView.as_view(), name='Aircrafts'),
+    path('airports/', AirportListView.as_view(template_name='airlinex/airport_list.html'), name='Airports'),
+    path('assignments/', AssignmentListView.as_view(), name='Assignments'),
+    path('bookings/', BookingListView.as_view(), name='Bookings'),
+    path('employees/', EmployeeListView.as_view(), name='Employees'),
+    path('flights/', FlightListView.as_view(), name='Flights'),
+    path('passengers/', PassengerListView.as_view(), name='Passengers'),
 ]
