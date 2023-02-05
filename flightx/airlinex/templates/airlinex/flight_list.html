@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Flights{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Flight</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Delay</th>
+        </tr>
+        {% for flight in object_list %}
+        <tr>
+            <td>{{ flight.number }}</td>
+            <td>{{ flight.departure_airport.name }}</td>
+            <td>{{ flight.destination_airport.name }}</td>
+            <td>{{ flight.departure_time }}</td>
+            <td>{{ flight.arrival_time }}</td>
+            <td>{% if flight.delay > 0 %}+{% endif %}{{ flight.delay }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

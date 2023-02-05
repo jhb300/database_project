@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    align-items: center;
+    letter-spacing: 0.5px;
+}
+
+header .brand {
+    max-height: 25px;
+    display: inline-flex;
+    align-items: center;
+    margin: 2px 12px;
+}
+
+header .brand img {
+    height: 35px;
+}
+
+header .brand-name {
+    color: white;
+    font-size: 22px;
+    margin-left: 6px;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin: 0 1rem;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* Child template styles */
+.table-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0px 30px 0px;
+    padding: 0px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow-x: auto;
+    scrollbar-color: grey white;
+    scrollbar-width: thin;
+    width: fit-content;
+}
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+}
+
+table th, table td {
+    padding: 10px 12px;
+}
+
+table th {
+    letter-spacing: 1px;
+}
+
+table tr {
+    transition: 0.3s;
+    line-height: 20px;
+    border-top: 1px solid rgb(95, 95, 95);
+}
+
+table tr:hover {
+    background-color: rgba(170, 170, 170, 0.5);
+}
+
+table th {
+    text-align: left;
+}
+table tr:first-child {
+    background-color: #333;
+    color: white;
+    border-top-right-radius: 10px;
+}

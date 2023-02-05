@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Flight Management System</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static 'logo.png' %}"/>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="{% static 'logo.png' %}" alt="Company Logo">
+      <div class="brand-name"> FlightX</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#flights">Flights</a></li>
+        <li><a href="#aircrafts">Aircrafts</a></li>
+        <li><a href="#passengers">Passengers</a></li>
+        <li><a href="#crew">Crew</a></li>
+        <li><a href="#airports">Airports</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 2023 Flight Management System</p>
+  </footer>
+</body>
+</html>

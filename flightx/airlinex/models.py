@@ -21,9 +21,13 @@ class Aircraft(models.Model):
         ("B73710", "B737-MAX10"),
     ]
 
+    # TODO: Implement check whether Registration is like D-A___
     registration = models.CharField("Unique aircraft registration", max_length=10, primary_key=True)
     type_series = models.CharField("Aircraft type series", max_length=10, choices=TYPE_SERIES_CHOICES)
     passenger_capacity = models.IntegerField("Number of passenger seats")
+
+    def __str__(self) -> str:
+        return f"{self.get_type_series_display()} ({self.registration})"
 
 
 class Passenger(models.Model):
@@ -37,6 +41,10 @@ class Passenger(models.Model):
     first_name = models.CharField("First name", max_length=100)
     last_name = models.CharField("Last name", max_length=100)
     status = models.CharField("Customer status", max_length=20, choices=CUSTOMER_STATUS_CHOICES, default="B")
+    notes = models.TextField("Extra notes", max_length=2000, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name} with status {self.get_status_display()}"
 
 
 class Employee(models.Model):
@@ -52,12 +60,16 @@ class Employee(models.Model):
     email = models.EmailField("Employee mail")
     role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
 
+    def __str__(self) -> str:
+        return f"{self.get_role_display()}: {self.first_name} {self.last_name}"
+
 
 class Flight(models.Model):
     number = models.CharField("Flight number", max_length=10, primary_key=True)
     departure_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departure_airport")
     destination_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrival_airport")
-    
+    aircraft = models.ForeignKey(Aircraft, on_delete=models.PROTECT, related_name="aircraft")
+
     departure_time = models.DateTimeField("Departure Date & Time")
     arrival_time = models.DateTimeField("Arrival Date & Time")
     delay = models.PositiveIntegerField("Delay in minutes", default=0)
@@ -70,6 +82,9 @@ class Flight(models.Model):
         """Return flight duration in minutes"""
 
         return self.arrival_time - self.departure_time
+    
+    def __str__(self) -> str:
+        return f"Flight {self.number} from {self.departure_airport} to {self.destination_airport}"
 
 
 class Assignment(models.Model):
@@ -77,8 +92,14 @@ class Assignment(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.PROTECT)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return f"Employee {self.employee.first_name} {self.employee.last_name} on flight {self.flight.number}"
+
 
 class Booking(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     time = models.DateTimeField("Creation time of booking", auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"Passenger {self.passenger.first_name} {self.passenger.last_name} on flight {self.flight.number}"
