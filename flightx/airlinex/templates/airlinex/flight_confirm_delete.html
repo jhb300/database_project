@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Flights{% endblock %}
+
+{% block content %}
+
+<div class="table-container" style="padding:5%">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        Please confirm that you want to delete Flight Nr. "{{flight.number}}":
+        <button type="submit">Confirm</button>
+    </form>
+</div>
+
+{% endblock %}

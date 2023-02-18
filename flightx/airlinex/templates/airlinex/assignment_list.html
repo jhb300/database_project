@@ -11,6 +11,7 @@
             <th>To</th>
             <th>Assignee</th>
             <th>Role</th>
+            <th>Actions</th>
         </tr>
         {% for assignment in object_list %}
         <tr>
@@ -19,8 +20,15 @@
             <td>{{ assignment.flight.destination_airport.name }}</td>
             <td>{{ assignment.employee.first_name }} {{ assignment.employee.last_name }}</td>
             <td>{{ assignment.employee.get_role_display }}</td>
+            <td>
+                <a href="{% url 'UpdateAssignments' assignment.id %}">&#9998;</a>
+                <a href="{% url 'DeleteAssignments' assignment.id %}">&#128465;</a>
+            </td>
         </tr>
         {% endfor %}
+        <tr>
+            <td><a href="{% url 'AddAssignments' %}">Add Airport</a></td>
+        </tr>
     </table>
 </div>
 {% endblock %}

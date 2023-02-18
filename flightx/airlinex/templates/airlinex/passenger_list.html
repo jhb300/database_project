@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Passenger{% endblock %}
+{% block title %}Passengers{% endblock %}
 
 {% block content %}
 
@@ -10,14 +10,22 @@
             <th>Name</th>
             <th>Status</th>
             <th>Notes</th>
+            <th>Actions</th>
         </tr>
         {% for passenger in object_list %}
         <tr>
             <td>{{ passenger.first_name }} {{ passenger.last_name }}</td>
             <td>{{ passenger.get_status_display }}</td>
             <td>{{ passenger.notes }}</td>
+            <td>
+                <a href="{% url 'UpdatePassengers' passenger.id %}">&#9998;</a>
+                <a href="{% url 'DeletePassengers' passenger.id %}">&#128465;</a>
+            </td>
         </tr>
         {% endfor %}
+        <tr>
+            <td><a href="{% url 'AddPassengers' %}">Add Passenger</a></td>
+        </tr>
     </table>
 </div>
 {% endblock %}
