@@ -87,6 +87,11 @@ footer p {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 /* Base template startpage content */
 .startpage-content {
     display: flex;

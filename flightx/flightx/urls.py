@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from airlinex.views import FlightListView, AircraftListView, AssignmentListView, BookingListView, PassengerListView, EmployeeListView, StartpageView
-from airportx.views import AirportListView
+from airportx.views import AirportListView, AirportCreateView, AirportUpdateView, AirportDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,9 @@ urlpatterns = [
     path('startpage/', StartpageView.as_view(), name='Home'),
     path('aircrafts/', AircraftListView.as_view(), name='Aircrafts'),
     path('airports/', AirportListView.as_view(template_name='airportx/airport_list.html'), name='Airports'),
+    path('airports/add', AirportCreateView.as_view(), name='AddAirports'),
+    path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
+    path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
     path('bookings/', BookingListView.as_view(), name='Bookings'),
     path('employees/', EmployeeListView.as_view(), name='Employees'),

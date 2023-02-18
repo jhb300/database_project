@@ -8,13 +8,22 @@
         <tr>
             <th>ICAO-Code</th>
             <th>Name</th>
+            <th>Actions</th>
         </tr>
         {% for airport in object_list %}
         <tr>
             <td>{{ airport.icao_code }}</td>
             <td>{{ airport.name }}</td>
+            <td>
+                <a href="{% url 'UpdateAirports' airport.icao_code %}">&#9998;</a>
+                <a href="{% url 'DeleteAirports' airport.icao_code %}">&#128465;</a>
+            </td>
         </tr>
         {% endfor %}
+        <tr>
+            <td><a href="{% url 'AddAirports' %}">Add Airport</a></td>
+            
+        </tr>
     </table>
 </div>
 {% endblock %}
