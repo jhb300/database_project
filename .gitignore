@@ -1,7 +1,9 @@
 # created by virtualenv automatically
 Lib
+bin
 Include
 Scripts
 *.csv
 __pycache__
 pyvenv.cfg
+.DS_Store
