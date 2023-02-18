@@ -34,8 +34,27 @@ urlpatterns = [
     path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
 
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
+    path('assignments/add/', AssignmentCreateView.as_view(), name='AddAssignments'),
+    path('assignments/<slug:pk>/', AssignmentListView.as_view(), name='UpdateAssignments'),
+    path('assignments/<slug:pk>/delete/', AssignmentDeleteView.as_view(), name='DeleteAssignments'),
+
     path('bookings/', BookingListView.as_view(), name='Bookings'),
+    path('bookings/add/', BookingCreateView.as_view(), name='AddBookings'),
+    path('bookings/<slug:pk>/', BookingUpdateView.as_view(), name='UpdateBookings'),
+    path('bookings/<slug:pk>/delete/', BookingDeleteView.as_view(), name='DeleteBookings'),
+
     path('employees/', EmployeeListView.as_view(), name='Employees'),
+    path('employees/add/', EmployeeCreateView.as_view(), name='AddEmployees'),
+    path('employees/<slug:pk>/', EmployeeUpdateView.as_view(), name='UpdateEmployees'),
+    path('employees/<slug:pk>/delete/', EmployeeDeleteView.as_view(), name='DeleteEmployees'),
+
     path('flights/', FlightListView.as_view(), name='Flights'),
+    path('flights/add/', FlightsCreateView.as_view(), name='AddFlights'),
+    path('flights/<slug:pk>/', FlightsUpdateView.as_view(), name='UpdateFlights'),
+    path('flights/<slug:pk>/delete/', FlightsDeleteView.as_view(), name='DeleteFlights'),
+
     path('passengers/', PassengerListView.as_view(), name='Passengers'),
+    path('passengers/add/', PassengerCreateView.as_view(), name='AddPassengers'),
+    path('passengers/<slug:pk>/', PassengerUpdateView.as_view(), name='UpdatePassengers'),
+    path('passengers/<slug:pk>/delete/', PassengerDeleteView.as_view(), name='DeletePassengers'),
 ]

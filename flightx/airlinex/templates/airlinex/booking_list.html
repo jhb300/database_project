@@ -11,6 +11,7 @@
             <th>To</th>
             <th>Passenger</th>
             <th>Passenger Notes</th>
+            <th>Actions</th>
         </tr>
         {% for booking in object_list %}
         <tr>
@@ -19,8 +20,15 @@
             <td>{{ booking.flight.destination_airport.name }}</td>
             <td>{{ booking.passenger.first_name }} {{ booking.passenger.last_name }}</td>
             <td>{{ booking.passenger.notes }}</td>
+            <td>
+                <a href="{% url 'UpdateBookings' booking.id %}">&#9998;</a>
+                <a href="{% url 'DeleteBookings' booking.id %}">&#128465;</a>
+            </td>
         </tr>
         {% endfor %}
+        <tr>
+            <td><a href="{% url 'AddBookings' %}">Add Booking</a></td>
+        </tr>
     </table>
 </div>
 {% endblock %}

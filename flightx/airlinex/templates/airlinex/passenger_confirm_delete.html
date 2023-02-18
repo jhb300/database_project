@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Airports{% endblock %}
+{% block title %}Passenger{% endblock %}
 
 {% block content %}
 
 <div class="table-container" style="padding:5%">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        Please confirm that you want to delete Aircraft "{{aircraft.registration}}":
+        Please confirm that you want to delete the Passenger "{{passenger.first_name}} {{passenger.last_name}}":
         <button type="submit">Confirm</button>
     </form>
 </div>

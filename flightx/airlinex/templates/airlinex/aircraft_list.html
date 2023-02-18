@@ -16,7 +16,6 @@
             <td>{{ aircraft.registration }}</td>
             <td>{{ aircraft.get_type_series_display }}</td>
             <td>{{ aircraft.passenger_capacity }}</td>
-
             <td>
                 <a href="{% url 'UpdateAircrafts' aircraft.registration %}">&#9998;</a>
                 <a href="{% url 'DeleteAircrafts' aircraft.registration %}">&#128465;</a>
