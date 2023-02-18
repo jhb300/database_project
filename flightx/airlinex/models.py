@@ -1,5 +1,4 @@
 from django.db import models
-
 from airportx.models import Airport
 
 
@@ -101,5 +100,27 @@ class Booking(models.Model):
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     time = models.DateTimeField("Creation time of booking", auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['flight', 'passenger'], name='flight_passenger_unique')
+        ]
+        
     def __str__(self) -> str:
         return f"Passenger {self.passenger.first_name} {self.passenger.last_name} on flight {self.flight.number}"
+
+
+# ------------ SQL for bookings weak entity type definition ------------
+# Create table airlinex_booking (
+# 	"time" timestamp with time zone NOT NULL,
+#     flight_id character varying(10) NOT NULL,
+#     passenger_id bigint NOT NULL
+# );
+
+# ALTER TABLE ONLY public.airlinex_booking
+#     ADD CONSTRAINT airlinex_booking_pkey PRIMARY KEY (flight_id, passenger_id);
+
+# ALTER TABLE ONLY public.airlinex_booking
+#     ADD CONSTRAINT airlinex_booking_flight_id_084d83f2_fk_airlinex_flight_number FOREIGN KEY (flight_id) REFERENCES public.airlinex_flight(number) DEFERRABLE INITIALLY DEFERRED;
+
+# ALTER TABLE ONLY public.airlinex_booking
+#     ADD CONSTRAINT airlinex_booking_passenger_id_da0d1fa1_fk_airlinex_passenger_id FOREIGN KEY (passenger_id) REFERENCES public.airlinex_passenger(id) DEFERRABLE INITIALLY DEFERRED;
