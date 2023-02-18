@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from airportx.models import Airport
 
@@ -28,6 +29,9 @@ class Aircraft(models.Model):
 
     def __str__(self) -> str:
         return f"{self.get_type_series_display()} ({self.registration})"
+
+    def get_absolute_url(self):
+        return reverse('UpdateAircraft', kwargs={'pk': self.pk})
 
 
 class Passenger(models.Model):

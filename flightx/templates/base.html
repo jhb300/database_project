@@ -27,7 +27,7 @@
         <li><a href="{% url 'Flights' %}">Airline</a></li>
         <li><a href="{% url 'Airports' %}">Airport</a></li>
       </ul>
-      {% elif request.resolver_match.url_name in 'Aircrafts,Assignments,Bookings,Crew,Flights,Passengers' %}
+      {% elif request.resolver_match.url_name in 'Aircrafts,Assignments,Bookings,Employees,Flights,Passengers' %}
       <ul>
         <li><a {% if request.resolver_match.url_name == 'Aircrafts' %}class="active"{% endif %} href="{% url 'Aircrafts' %}">Aircrafts</a></li>
         <li><a {% if request.resolver_match.url_name == 'Assingments' %}class="active"{% endif %} href="{% url 'Assignments' %}">Assignments</a></li>

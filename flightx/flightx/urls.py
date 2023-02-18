@@ -15,18 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from airlinex.views import FlightListView, AircraftListView, AssignmentListView, BookingListView, PassengerListView, EmployeeListView, StartpageView
-from airportx.views import AirportListView, AirportCreateView, AirportUpdateView, AirportDeleteView
+from airlinex.views import *
+from airportx.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', StartpageView.as_view(), name='Home'),
     path('startpage/', StartpageView.as_view(), name='Home'),
+
     path('aircrafts/', AircraftListView.as_view(), name='Aircrafts'),
-    path('airports/', AirportListView.as_view(template_name='airportx/airport_list.html'), name='Airports'),
-    path('airports/add', AirportCreateView.as_view(), name='AddAirports'),
+    path('aircrafts/add/', AircraftCreateView.as_view(), name='AddAircrafts'),
+    path('aircrafts/<slug:pk>/', AircraftUpdateView.as_view(), name='UpdateAircrafts'),
+    path('aircrafts/<slug:pk>/delete/', AircraftDeleteView.as_view(), name='DeleteAircrafts'),
+
+    path('airports/', AirportListView.as_view(), name='Airports'),
+    path('airports/add/', AirportCreateView.as_view(), name='AddAirports'),
     path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
     path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
+
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
     path('bookings/', BookingListView.as_view(), name='Bookings'),
     path('employees/', EmployeeListView.as_view(), name='Employees'),
