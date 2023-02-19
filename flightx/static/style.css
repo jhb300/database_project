@@ -186,7 +186,7 @@ table tr:first-child {
 
 .table-container .bi {
     color: var(--corporate-grey);
-    padding-right: 3px;
+    padding-right: 4px;
     transition: 0.3s;
 }
 .table-container .bi:hover {
@@ -205,6 +205,7 @@ table tr:first-child {
 .table-container .add_link:hover {
     color: var(--corporate-yellow);
 }
+
 
 
 /* Form pages */
