@@ -38,10 +38,17 @@ class AirportDeleteView(DeleteView):
     object_change = refresh_materialized()
 
 def AirportDetailView(request, pk):
-    #airport_info = AirportEmployees.objects.filter(icao_code=icao_code)
-    airport_info = get_object_or_404(AirportEmployees, pk=pk)
-    airport_stats = get_object_or_404(AirportStats, pk=pk)
-
+    airport_info = "Number of Employees not available"
+    airport_stats = {
+        'average_delay':0,
+        'number_flights':0,
+        'number_bookings':0,
+    }
+    try:
+        airport_info = get_object_or_404(AirportEmployees, pk=pk)
+        airport_stats = get_object_or_404(AirportStats, pk=pk)
+    except:
+        pass
     return render(
         request, 
         'airportx/airportemployees_list.html', 

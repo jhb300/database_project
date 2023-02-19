@@ -31,4 +31,7 @@ class AirportStats(models.Model):
         managed = False
         db_table = 'airport_stats'
 
+    def __str__(self):
+        return f"ICAO: {self.icao_code}, Delay: {self.average_delay}, Flights: {self.number_flights}, Bookings: {self.number_bookings}"
+
 
