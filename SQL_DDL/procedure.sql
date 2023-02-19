@@ -1,20 +1,27 @@
 -- Stored procedure
-CREATE PROCEDURE cancel_flight (@flight_id CHAR VARYING)
-AS
+CREATE PROCEDURE cancel_flight(flight_number VARCHAR)
+LANGUAGE plpgsql
+AS $$
 BEGIN
-  BEGIN TRANSACTION;
-	-- Update bookings
-  UPDATE airlinex_booking SET canceled = true WHERE number = @flight_id;
+  -- Update bookings
+  UPDATE airlinex_booking SET canceled = true WHERE flight_id = flight_number;
   -- Remove crew assignments for the flight
-  DELETE FROM airlinex_assignment WHERE number = @flight_id;
-  COMMIT;
+  DELETE FROM airlinex_assignment WHERE flight_id = flight_number;
+END;$$;
+
+-- Trigger function to trigger and check for cancellation
+CREATE OR REPLACE FUNCTION cancel_flight_trigger_function()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.canceled THEN
+    CALL cancel_flight(NEW.number);
+  END IF;
+  RETURN NULL;
 END;
+$$ LANGUAGE plpgsql;
 
 -- Corresponding trigger
 CREATE TRIGGER cancel_flight_trigger
 AFTER UPDATE ON airlinex_flight
 FOR EACH ROW
-WHEN (NEW.canceled = true)
-BEGIN
-  CALL cancel_flight(NEW.number);
-END;
+EXECUTE FUNCTION cancel_flight_trigger_function();

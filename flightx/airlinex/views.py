@@ -95,7 +95,7 @@ class BookingCreateView(CreateView):
 
 class BookingUpdateView(UpdateView):
     model = Booking
-    fields = ['flight', 'passenger', 'canceled']
+    fields = ['flight', 'passenger', 'cancelled']
     success_url = reverse_lazy('Bookings')
 
 class BookingDeleteView(DeleteView):

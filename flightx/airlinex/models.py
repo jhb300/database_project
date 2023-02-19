@@ -66,7 +66,7 @@ class Employee(models.Model):
     last_name = models.CharField("Last name", max_length=100)
     email = models.EmailField("Employee mail")
     role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
-    based_in = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="based_in")
+    based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, related_name="based_in", null=True)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -84,7 +84,7 @@ class Flight(models.Model):
     departure_time = models.DateTimeField("Departure Date & Time")
     arrival_time = models.DateTimeField("Arrival Date & Time")
     delay = models.PositiveIntegerField("Delay in minutes", default=0)
-    canceled = models.BooleanField("Cancelation status", default=False)
+    cancelled = models.BooleanField("Cancelation status", default=False)
 
     # No deletion if there are still flights assigned
     # TODO: Implement check if the Employees on the flight are sufficient (e.g. one captain, one FO etc)
@@ -118,7 +118,7 @@ class Booking(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     time = models.DateTimeField("Creation time of booking", auto_now_add=True)
-    canceled = models.BooleanField("Cancelation status", default=False)
+    cancelled = models.BooleanField("Cancelation status", default=False)
 
     class Meta:
         constraints = [
@@ -130,21 +130,3 @@ class Booking(models.Model):
 
     def get_absolute_url(self):
         return reverse('UpdateBookings', kwargs={'pk': self.pk})
-
-
-# ------------ SQL for bookings weak entity type definition ------------
-# Create table airlinex_booking (
-# 	"time" timestamp with time zone NOT NULL,
-#     flight_id character varying(10) NOT NULL,
-#     passenger_id bigint NOT NULL
-# );
-
-# ALTER TABLE ONLY public.airlinex_booking
-#     ADD CONSTRAINT airlinex_booking_pkey PRIMARY KEY (flight_id, passenger_id);
-
-# ALTER TABLE ONLY public.airlinex_booking
-#     ADD CONSTRAINT airlinex_booking_flight_id_084d83f2_fk_airlinex_flight_number FOREIGN KEY (flight_id) REFERENCES public.airlinex_flight(number) DEFERRABLE INITIALLY DEFERRED;
-
-# ALTER TABLE ONLY public.airlinex_booking
-#     ADD CONSTRAINT airlinex_booking_passenger_id_da0d1fa1_fk_airlinex_passenger_id FOREIGN KEY (passenger_id) REFERENCES public.airlinex_passenger(id) DEFERRABLE INITIALLY DEFERRED;
-    

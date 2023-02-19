@@ -15,11 +15,11 @@
         </tr>
         {% for booking in object_list %}
         <tr>
-            <td {% if booking.canceled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.number }}</td>
-            <td {% if booking.canceled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.departure_airport.name }}</td>
-            <td {% if booking.canceled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.destination_airport.name }}</td>
-            <td {% if booking.canceled %} style="text-decoration: line-through;"{% endif %}>{{ booking.passenger.first_name }} {{ booking.passenger.last_name }}</td>
-            <td {% if booking.canceled %} style="text-decoration: line-through;"{% endif %}>{{ booking.passenger.notes }}</td>
+            <td {% if booking.cancelled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.number }}</td>
+            <td {% if booking.cancelled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.departure_airport.name }}</td>
+            <td {% if booking.cancelled %} style="text-decoration: line-through;"{% endif %}>{{ booking.flight.destination_airport.name }}</td>
+            <td {% if booking.cancelled %} style="text-decoration: line-through;"{% endif %}>{{ booking.passenger.first_name }} {{ booking.passenger.last_name }}</td>
+            <td {% if booking.cancelled %} style="text-decoration: line-through;"{% endif %}>{{ booking.passenger.notes }}</td>
             <td>
                 <a href="{% url 'UpdateBookings' booking.id %}"><i class="bi bi-pencil-square"></i></a>
                 <a href="{% url 'DeleteBookings' booking.id %}"><i class="bi bi-trash"></i></a>
