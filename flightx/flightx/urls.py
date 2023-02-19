@@ -23,16 +23,16 @@ urlpatterns = [
     path('', StartpageView.as_view(), name='Home'),
     path('startpage/', StartpageView.as_view(), name='Home'),
 
+    path('airports/', AirportListView.as_view(), name='Airports'),
+    path('airports/add/', AirportCreateView.as_view(), name='AddAirports'),
+    path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
+    path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
+
     path('aircrafts/', AircraftListView.as_view(), name='Aircrafts'),
     path('airport-si-check/', AirportSICheck.as_view(), name='AirportsSICheck'),
     path('aircrafts/add/', AircraftCreateView.as_view(), name='AddAircrafts'),
     path('aircrafts/<slug:pk>/', AircraftUpdateView.as_view(), name='UpdateAircrafts'),
     path('aircrafts/<slug:pk>/delete/', AircraftDeleteView.as_view(), name='DeleteAircrafts'),
-
-    path('airports/', AirportListView.as_view(), name='Airports'),
-    path('airports/add/', AirportCreateView.as_view(), name='AddAirports'),
-    path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
-    path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
 
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
     path('assignments/add/', AssignmentCreateView.as_view(), name='AddAssignments'),

@@ -1,12 +1,16 @@
+from django import forms
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.urls import reverse_lazy
+
 from .models import Aircraft, Assignment, Booking, Employee, Flight, Passenger
 from airportx.models import Airport
+from .forms import FlightForm
+
 import pandas as pd
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 # Create your views here.
 
@@ -33,6 +37,11 @@ class AircraftDeleteView(DeleteView):
 
 class AirportSICheck(View):
     def get(self, request):
+        """
+        Return the DB explain output of filtering for an airport given a certain number of airports in the DB
+        to filter from. This was used for the secondary index performance analysis on the airports name attribute.
+        """
+        
         # Data from: https://datahub.io/core/airport-codes#resource-airport-codes
         df = pd.read_csv("airlinex/airport_codes.csv", index_col=0, low_memory=False)
         drop_list = ["type", "elevation_ft", "continent", "iso_country", "iso_region", "municipality", "gps_code", "iata_code", "coordinates"]
@@ -117,12 +126,12 @@ class FlightListView(ListView):
 
 class FlightsCreateView(CreateView):
     model = Flight
-    fields = ['number', 'departure_airport', 'destination_airport', 'aircraft', 'departure_time', 'arrival_time', 'delay']
+    form_class = FlightForm
     success_url = reverse_lazy('Flights')
 
 class FlightsUpdateView(UpdateView):
     model = Flight
-    fields = ['number', 'departure_airport', 'destination_airport', 'aircraft', 'departure_time', 'arrival_time', 'delay']
+    form_class = FlightForm
     success_url = reverse_lazy('Flights')
 
 class FlightsDeleteView(DeleteView):

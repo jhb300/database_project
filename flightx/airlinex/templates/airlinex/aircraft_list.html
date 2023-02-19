@@ -17,14 +17,13 @@
             <td>{{ aircraft.get_type_series_display }}</td>
             <td>{{ aircraft.passenger_capacity }}</td>
             <td>
-                <a href="{% url 'UpdateAircrafts' aircraft.registration %}">&#9998;</a>
-                <a href="{% url 'DeleteAircrafts' aircraft.registration %}">&#128465;</a>
+                <a href="{% url 'UpdateAircrafts' aircraft.registration %}"><i class="bi bi-pencil-square"></i></a>
+                <a href="{% url 'DeleteAircrafts' aircraft.registration %}"><i class="bi bi-trash"></i></a>
+                <!-- Old Edit: &#9998; Delete: &#128465; -->
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td><a href="{% url 'AddAircrafts' %}">Add Airport</a></td>
-        </tr>
     </table>
+    <a class="add_link" href="{% url 'AddAircrafts' %}">Add Aircraft</a>
 </div>
 {% endblock %}

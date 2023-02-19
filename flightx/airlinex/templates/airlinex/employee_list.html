@@ -17,14 +17,12 @@
             <td>{{ employee.email }}</td>
             <td>{{ employee.get_role_display }}</td>
             <td>
-                <a href="{% url 'UpdateEmployees' employee.id %}">&#9998;</a>
-                <a href="{% url 'DeleteEmployees' employee.id %}">&#128465;</a>
+                <a href="{% url 'UpdateEmployees' employee.id %}"><i class="bi bi-pencil-square"></i></a>
+                <a href="{% url 'DeleteEmployees' employee.id %}"><i class="bi bi-trash"></i></a>
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td><a href="{% url 'AddEmployees' %}">Add Crew member</a></td>
-        </tr>
-        </table>
+    </table>
+    <a class="add_link" href="{% url 'AddEmployees' %}">Add Crew member</a>
 </div>
 {% endblock %}

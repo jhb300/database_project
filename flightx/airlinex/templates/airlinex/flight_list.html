@@ -23,14 +23,12 @@
             <td>{{ flight.arrival_time }}</td>
             <td>{% if flight.delay > 0 %}+{% endif %}{{ flight.delay }}</td>
             <td>
-                <a href="{% url 'UpdateFlights' flight.number %}">&#9998;</a>
-                <a href="{% url 'DeleteFlights' flight.number %}">&#128465;</a>
+                <a href="{% url 'UpdateFlights' flight.number %}"><i class="bi bi-pencil-square"></i></a>
+                <a href="{% url 'DeleteFlights' flight.number %}"><i class="bi bi-trash"></i></a>
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td><a href="{% url 'AddFlights' %}">Add Flight</a></td>
-        </tr>
     </table>
+    <a class="add_link" href="{% url 'AddFlights' %}">Add Flight</a>
 </div>
 {% endblock %}
