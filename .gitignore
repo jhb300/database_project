@@ -6,4 +6,3 @@ Scripts
 __pycache__
 pyvenv.cfg
 .DS_Store
-migrations

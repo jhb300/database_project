@@ -8,7 +8,7 @@ class AirportListView(ListView):
     model = Airport
 
 class AirportEmployeesListView(ListView):
-    model = AirportEmployees    
+    model = AirportEmployees
 
 class AirportCreateView(CreateView):
     model = Airport

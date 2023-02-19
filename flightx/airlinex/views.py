@@ -108,12 +108,12 @@ class EmployeeListView(ListView):
 
 class EmployeeCreateView(CreateView):
     model = Employee
-    fields = ['first_name', 'last_name', 'email', 'role']
+    fields = ['first_name', 'last_name', 'email', 'role', 'based_in']
     success_url = reverse_lazy('Employees')
 
 class EmployeeUpdateView(UpdateView):
     model = Employee
-    fields = ['first_name', 'last_name', 'email', 'role']
+    fields = ['first_name', 'last_name', 'email', 'role', 'based_in']
     success_url = reverse_lazy('Employees')
 
 class EmployeeDeleteView(DeleteView):
