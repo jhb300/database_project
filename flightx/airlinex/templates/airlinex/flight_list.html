@@ -12,6 +12,7 @@
             <th>Departure</th>
             <th>Arrival</th>
             <th>Delay</th>
+            <th>Aircraft</th>
             <th>Actions</th>
         </tr>
         {% for flight in object_list %}
@@ -22,6 +23,7 @@
             <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.departure_time }}</td>
             <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.arrival_time }}</td>
             <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{% if flight.delay > 0 %}+{% endif %}{{ flight.delay }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.aircraft.get_type_series_display }}</td>
             <td>
                 <a href="{% url 'UpdateFlights' flight.number %}"><i class="bi bi-pencil-square"></i></a>
                 <a href="{% url 'DeleteFlights' flight.number %}"><i class="bi bi-trash"></i></a>
