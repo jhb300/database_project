@@ -29,7 +29,8 @@ urlpatterns = [
     path('aircrafts/<slug:pk>/', AircraftUpdateView.as_view(), name='UpdateAircrafts'),
     path('aircrafts/<slug:pk>/delete/', AircraftDeleteView.as_view(), name='DeleteAircrafts'),
 
-    path('airports/', AirportListView.as_view(), name='Airports'),
+    #path('airports/', AirportListView.as_view(), name='AirportsOld'), #TODO: REMOVE 
+    path('airports/', AirportEmployeesListView.as_view(), name='Airports'),
     path('airports/add/', AirportCreateView.as_view(), name='AddAirports'),
     path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
     path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),

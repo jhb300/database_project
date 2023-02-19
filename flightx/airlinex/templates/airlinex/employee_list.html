@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>E-Mail</th>
             <th>Role</th>
+            <th>Based In</th>
             <th>Actions</th>
         </tr>
         {% for employee in object_list %}
@@ -16,6 +17,7 @@
             <td>{{ employee.first_name }} {{ employee.last_name }}</td>
             <td>{{ employee.email }}</td>
             <td>{{ employee.get_role_display }}</td>
+            <td>{{ employee.based_in.name }}</td>
             <td>
                 <a href="{% url 'UpdateEmployees' employee.id %}">&#9998;</a>
                 <a href="{% url 'DeleteEmployees' employee.id %}">&#128465;</a>

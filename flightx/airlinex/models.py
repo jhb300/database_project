@@ -66,6 +66,7 @@ class Employee(models.Model):
     last_name = models.CharField("Last name", max_length=100)
     email = models.EmailField("Employee mail")
     role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
+    based_in = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="based_in")
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"

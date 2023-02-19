@@ -36,10 +36,11 @@
         <li><a {% if request.resolver_match.url_name == 'Flights' %}class="active"{% endif %} href="{% url 'Flights' %}">Flights</a></li>
         <li><a {% if request.resolver_match.url_name == 'Passengers' %}class="active"{% endif %} href="{% url 'Passengers' %}">Passengers</a></li>
       </ul>
-      {% else %}
+      {% elif request.resolver_match.url_name == 'Airports' %}
       <ul>
         <li><a {% if request.resolver_match.url_name == 'Airports' %}class="active"{% endif %} href="{% url 'Airports' %}">Airports</a></li>
       </ul>
+      {% else %}
       {% endif %}
     </nav>
   </header>
