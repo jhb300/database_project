@@ -20,3 +20,15 @@ class AirportEmployees(models.Model):
 
     def __str__(self):
         return f"{self.name} Airport has {self.num_employees} Employees"
+    
+class AirportStats(models.Model):
+    icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
+    average_delay = models.FloatField("Average Delay")
+    number_flights = models.IntegerField("Number of Flights")
+    number_bookings = models.IntegerField("Number of Passengers")
+
+    class Meta:
+        managed = False
+        db_table = 'airportx_airport'
+        
+

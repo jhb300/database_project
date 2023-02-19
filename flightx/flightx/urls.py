@@ -30,10 +30,11 @@ urlpatterns = [
     path('aircrafts/<slug:pk>/delete/', AircraftDeleteView.as_view(), name='DeleteAircrafts'),
 
     path('airports/', AirportListView.as_view(), name='Airports'),
-    path('airports/', AirportEmployeesListView.as_view(), name='AirportsMV'),
     path('airports/add/', AirportCreateView.as_view(), name='AddAirports'),
     path('airports/<slug:pk>/', AirportUpdateView.as_view(), name='UpdateAirports'),
     path('airports/<slug:pk>/delete/', AirportDeleteView.as_view(), name='DeleteAirports'),
+    path('airports/<slug:pk>/materializedview/', AirportDetailView, name='AirportsMView'),
+    
 
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
     path('assignments/add/', AssignmentCreateView.as_view(), name='AddAssignments'),

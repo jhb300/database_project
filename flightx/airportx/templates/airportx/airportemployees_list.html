@@ -6,23 +6,22 @@
 <div class="table-container">
     <table>
         <tr>
-            <th>ICAO-Code</th>
-            <th>Name</th>
-            <th>Crew</th>
-            <th>Actions</th>
+            <th>{{ airport_info }}</th>
         </tr>
-        {% for airport in object_list %}
-        <tr>
-            <td>{{ airport.icao_code }}</td>
-            <td>{{ airport.name }}</td>
-            <td>{{ airport.num_employees }}</td>
-            <td>
-                <a href="{% url 'UpdateAirports' airport.icao_code %}"><i class="bi bi-pencil-square"></i></a>
-                <a href="{% url 'DeleteAirports' airport.icao_code %}"><i class="bi bi-trash"></i></a>
-            </td>
-        </tr>
-        {% endfor %}
     </table>
-    <a class="add_link" href="{% url 'AddAirports' %}">Add Airport</a>
+</div>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Avg. Delay</th>
+            <th>Num. Flights</th>
+            <th>Num. Passengers</th>
+        </tr>
+        <tr>
+            <td>{{ airport_stats.average_delay }}</td>
+            <td>{{ airport_stats.number_flights }}</td>
+            <td>{{ airport_stats.number_bookings }}</td>
+        </tr>
+    </table>
 </div>
 {% endblock %}
