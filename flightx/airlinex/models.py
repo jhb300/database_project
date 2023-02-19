@@ -83,6 +83,7 @@ class Flight(models.Model):
     departure_time = models.DateTimeField("Departure Date & Time")
     arrival_time = models.DateTimeField("Arrival Date & Time")
     delay = models.PositiveIntegerField("Delay in minutes", default=0)
+    canceled = models.BooleanField("Cancelation status", default=False)
 
     # No deletion if there are still flights assigned
     # TODO: Implement check if the Employees on the flight are sufficient (e.g. one captain, one FO etc)
@@ -116,6 +117,7 @@ class Booking(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     time = models.DateTimeField("Creation time of booking", auto_now_add=True)
+    canceled = models.BooleanField("Cancelation status", default=False)
 
     class Meta:
         constraints = [

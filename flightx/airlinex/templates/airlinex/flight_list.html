@@ -16,12 +16,12 @@
         </tr>
         {% for flight in object_list %}
         <tr>
-            <td>{{ flight.number }}</td>
-            <td>{{ flight.departure_airport.name }}</td>
-            <td>{{ flight.destination_airport.name }}</td>
-            <td>{{ flight.departure_time }}</td>
-            <td>{{ flight.arrival_time }}</td>
-            <td>{% if flight.delay > 0 %}+{% endif %}{{ flight.delay }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.number }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.departure_airport.name }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.destination_airport.name }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.departure_time }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{{ flight.arrival_time }}</td>
+            <td {% if flight.canceled %} style="text-decoration: line-through;"{% endif %}>{% if flight.delay > 0 %}+{% endif %}{{ flight.delay }}</td>
             <td>
                 <a href="{% url 'UpdateFlights' flight.number %}"><i class="bi bi-pencil-square"></i></a>
                 <a href="{% url 'DeleteFlights' flight.number %}"><i class="bi bi-trash"></i></a>
