@@ -43,7 +43,7 @@ class Passenger(models.Model):
     ]
 
     first_name = models.CharField("First name", max_length=100)
-    last_name = models.CharField("Last name", max_length=100)
+    last_name = models.CharField("Last name", max_length=100, db_index=True)
     status = models.CharField("Customer status", max_length=20, choices=CUSTOMER_STATUS_CHOICES, default="B")
     notes = models.TextField("Extra notes", max_length=2000, blank=True)
 
@@ -63,7 +63,7 @@ class Employee(models.Model):
     ]
 
     first_name = models.CharField("First name", max_length=100)
-    last_name = models.CharField("Last name", max_length=100)
+    last_name = models.CharField("Last name", max_length=100, db_index=True)
     email = models.EmailField("Employee mail")
     role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
     based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, related_name="based_in", null=True)
