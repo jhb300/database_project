@@ -17,14 +17,12 @@
             <td>{{ airport.name }}</td>
             <td>{{ airport.num_employees }}</td>
             <td>
-                <a href="{% url 'UpdateAirports' airport.icao_code %}">&#9998;</a>
-                <a href="{% url 'DeleteAirports' airport.icao_code %}">&#128465;</a>
+                <a href="{% url 'UpdateAirports' airport.icao_code %}"><i class="bi bi-pencil-square"></i></a>
+                <a href="{% url 'DeleteAirports' airport.icao_code %}"><i class="bi bi-trash"></i></a>
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td><a href="{% url 'AddAirports' %}">Add Airport</a></td>
-        </tr>
     </table>
+    <a class="add_link" href="{% url 'AddAirports' %}">Add Airport</a>
 </div>
 {% endblock %}
