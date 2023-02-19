@@ -29,6 +29,6 @@ class AirportStats(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'airportx_airport'
-        
+        db_table = 'airport_stats'
+
 
