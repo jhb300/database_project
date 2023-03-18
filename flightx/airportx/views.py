@@ -15,6 +15,10 @@ def refresh_materialized():
 class AirportListView(ListView):
     model = Airport
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(myfield__is_deleted=False)
+
 class AirportEmployeesListView(ListView):
     model = AirportEmployees
 
