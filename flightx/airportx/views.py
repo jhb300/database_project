@@ -47,6 +47,7 @@ def AirportDetailView(request, pk):
     try:
         airport_info = get_object_or_404(AirportEmployees, pk=pk)
         airport_stats = get_object_or_404(AirportStats, pk=pk)
+        print(airport_stats)
     except Exception:
         pass
     return render(
