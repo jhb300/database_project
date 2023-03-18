@@ -11,8 +11,8 @@
             <th>Actions</th>
         </tr>
         {% for airport in object_list %}
-        <tr>
-            <td><a href="{% url 'AirportsMView' airport.icao_code %}">{{ airport.icao_code }}</a></td>
+        <tr onclick="location.href = '{% url 'AirportsMView' airport.icao_code %}';" class="pointer-on-hover">
+            <a href="{% url 'AirportsMView' airport.icao_code %}"><td>{{ airport.icao_code }}</td></a>
             <td>{{ airport.name }}</td>
             <td>
                 <a href="{% url 'UpdateAirports' airport.icao_code %}"><i class="bi bi-pencil-square"></i></a>

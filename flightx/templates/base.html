@@ -33,7 +33,7 @@
       {% elif request.resolver_match.url_name in 'Aircrafts,Assignments,Bookings,Employees,Flights,Passengers' %}
       <ul>
         <li><a {% if request.resolver_match.url_name == 'Aircrafts' %}class="active"{% endif %} href="{% url 'Aircrafts' %}">Aircrafts</a></li>
-        <li><a {% if request.resolver_match.url_name == 'Assingments' %}class="active"{% endif %} href="{% url 'Assignments' %}">Assignments</a></li>
+        <li><a {% if request.resolver_match.url_name == 'Assignments' %}class="active"{% endif %} href="{% url 'Assignments' %}">Assignments</a></li>
         <li><a {% if request.resolver_match.url_name == 'Bookings' %}class="active"{% endif %} href="{% url 'Bookings' %}">Bookings</a></li>
         <li><a {% if request.resolver_match.url_name == 'Employees' %}class="active"{% endif %} href="{% url 'Employees' %}">Crew</a></li>
         <li><a {% if request.resolver_match.url_name == 'Flights' %}class="active"{% endif %} href="{% url 'Flights' %}">Flights</a></li>

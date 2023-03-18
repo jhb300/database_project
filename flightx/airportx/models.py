@@ -19,7 +19,7 @@ class AirportEmployees(models.Model):
         db_table = 'airport_and_based_crew'
 
     def __str__(self):
-        return f"{self.name} Airport has {self.num_employees} Employees"
+        return f"The Airport \"{self.name}\" is the base for {self.num_employees} Employees"
     
 class AirportStats(models.Model):
     icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)

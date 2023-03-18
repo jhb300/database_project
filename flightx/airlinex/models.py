@@ -86,8 +86,6 @@ class Flight(models.Model):
     delay = models.PositiveIntegerField("Delay in minutes", default=0)
     cancelled = models.BooleanField("Cancelation status", default=False)
 
-    # No deletion if there are still flights assigned
-    # TODO: Implement check if the Employees on the flight are sufficient (e.g. one captain, one FO etc)
     employees = models.ManyToManyField(Employee, through='Assignment')
 
     def get_duration(self) -> int:

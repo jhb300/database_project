@@ -1,11 +1,10 @@
 from django.urls import reverse_lazy
 from django.db import transaction, connection
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from airportx.models import Airport, AirportEmployees, AirportStats
 from django.views.generic import ListView
+from .forms import AirportUpdateForm
 
 @transaction.atomic
 def refresh_materialized():
@@ -28,6 +27,7 @@ class AirportCreateView(CreateView):
 
 class AirportUpdateView(UpdateView):
     model = Airport
+    # form_class = AirportUpdateForm
     fields = ['icao_code', 'name']
     success_url = reverse_lazy('Airports')
     object_change = refresh_materialized()
@@ -40,17 +40,17 @@ class AirportDeleteView(DeleteView):
 def AirportDetailView(request, pk):
     airport_info = "Number of Employees not available"
     airport_stats = {
-        'average_delay':0,
-        'number_flights':0,
-        'number_bookings':0,
+        'average_delay': 0,
+        'number_flights': 0,
+        'number_bookings': 0,
     }
     try:
         airport_info = get_object_or_404(AirportEmployees, pk=pk)
         airport_stats = get_object_or_404(AirportStats, pk=pk)
-    except:
+    except Exception:
         pass
     return render(
         request, 
         'airportx/airportemployees_list.html', 
-        {'airport_info': airport_info, 'airport_stats':airport_stats}
+        {'airport_info': airport_info, 'airport_stats': airport_stats}
     )

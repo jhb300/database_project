@@ -3,21 +3,28 @@
 {% block title %}Airports{% endblock %}
 
 {% block content %}
-<div class="table-container">
-    <table>
-        <tr>
-            <th>Avg. Delay</th>
-            <th>Num. Flights</th>
-            <th>Num. Passengers</th>
-        </tr>
-        <tr>
-            <td>{{ airport_stats.average_delay|floatformat:2 }}</td>
-            <td>{{ airport_stats.number_flights }}</td>
-            <td>{{ airport_stats.number_bookings }}</td>
-        </tr>
-        <tr>
+
+<div class="airport-detail-content-container">
+    {% if airport_info %}
+        <div class="airport-info-container">
+            <h3>Airport Information</h3>
             <p>{{ airport_info }}</p>
-        </tr>
-    </table>
+        </div>
+    {% endif %}
+
+    <div class="table-container airport-employees-view">
+        <table>
+            <tr>
+                <th>Avg. Delay</th>
+                <th>Num. Flights</th>
+                <th>Num. Passengers</th>
+            </tr>
+            <tr>
+                <td>{{ airport_stats.average_delay|floatformat:2 }}</td>
+                <td>{{ airport_stats.number_flights }}</td>
+                <td>{{ airport_stats.number_bookings }}</td>
+            </tr>
+        </table>
+    </div>
+    {% endblock %}
 </div>
-{% endblock %}
