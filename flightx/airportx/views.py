@@ -4,20 +4,17 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from airportx.models import Airport, AirportEmployees, AirportStats
 from django.views.generic import ListView
-from .forms import AirportUpdateForm
 
-@transaction.atomic
+# @transaction.atomic
 def refresh_materialized():
     with connection.cursor() as cursor:
-        cursor.execute("REFRESH MATERIALIZED VIEW airport_and_based_crew")
+        cursor.execute("REFRESH MATERIALIZED VIEW airport_and_based_crew;")
+        transaction.commit()
 
 # Create your views here.
 class AirportListView(ListView):
     model = Airport
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(myfield__is_deleted=False)
 
 class AirportEmployeesListView(ListView):
     model = AirportEmployees
@@ -27,33 +24,31 @@ class AirportCreateView(CreateView):
     model = Airport
     fields = ['icao_code', 'name']
     success_url = reverse_lazy('Airports')
-    object_change = refresh_materialized()
 
 class AirportUpdateView(UpdateView):
     model = Airport
     # form_class = AirportUpdateForm
-    fields = ['icao_code', 'name']
+    fields = ['name']
     success_url = reverse_lazy('Airports')
-    object_change = refresh_materialized()
 
 class AirportDeleteView(DeleteView):
     model = Airport
     success_url = reverse_lazy('Airports')
-    object_change = refresh_materialized()
 
 def AirportDetailView(request, pk):
+    refresh_materialized()
     airport_info = "Number of Employees not available"
     airport_stats = {
-        'average_delay': 0,
-        'number_flights': 0,
-        'number_bookings': 0,
+        'avg_delay': 0,
+        'num_flights': 0,
+        'num_passengers': 0,
     }
     try:
         airport_info = get_object_or_404(AirportEmployees, pk=pk)
         airport_stats = get_object_or_404(AirportStats, pk=pk)
         print(airport_stats)
     except Exception:
-        pass
+        print('failed to get airport stats')
     return render(
         request, 
         'airportx/airportemployees_list.html', 
