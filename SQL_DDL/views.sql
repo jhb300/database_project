@@ -6,18 +6,30 @@ LEFT JOIN airlinex_employee ON airportx_airport.icao_code = airlinex_employee.ba
 GROUP BY airportx_airport.icao_code;
 
 -- View: incomming flights for each airport
+-- CREATE OR REPLACE VIEW airport_stats AS
+-- SELECT 
+--   airportx_airport.icao_code, 
+--   AVG(airlinex_flight.delay) AS average_delay, 
+--   COUNT(airlinex_flight.number) AS number_flights, 
+--   COUNT(airlinex_booking.id) AS number_bookings 
+-- FROM 
+--   airportx_airport 
+--   JOIN airlinex_flight 
+--   ON airportx_airport.icao_code = airlinex_flight.departure_airport_id 
+--   OR airportx_airport.icao_code = airlinex_flight.destination_airport_id
+-- GROUP BY 
+--   airportx_airport.icao_code;
+
+-- View: incomming flights for each airport
 CREATE OR REPLACE VIEW airport_stats AS
 SELECT 
   airportx_airport.icao_code, 
   AVG(airlinex_flight.delay) AS average_delay, 
-  COUNT(airlinex_flight.number) AS number_flights, 
-  COUNT(airlinex_booking.id) AS number_bookings 
+  COUNT(airlinex_flight.number) AS number_flights 
 FROM 
   airportx_airport 
   JOIN airlinex_flight 
   ON airportx_airport.icao_code = airlinex_flight.departure_airport_id 
   OR airportx_airport.icao_code = airlinex_flight.destination_airport_id
-  LEFT JOIN airlinex_booking 
-  ON airlinex_flight.number = airlinex_booking.flight_id
 GROUP BY 
   airportx_airport.icao_code;
