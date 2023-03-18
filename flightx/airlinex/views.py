@@ -28,7 +28,7 @@ class AircraftCreateView(CreateView):
 
 class AircraftUpdateView(UpdateView):
     model = Aircraft
-    fields = ['registration', 'type_series', 'passenger_capacity']
+    fields = ['type_series', 'passenger_capacity']
     success_url = reverse_lazy('Aircrafts')
 
 class AircraftDeleteView(DeleteView):

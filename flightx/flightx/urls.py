@@ -38,7 +38,7 @@ urlpatterns = [
 
     path('assignments/', AssignmentListView.as_view(), name='Assignments'),
     path('assignments/add/', AssignmentCreateView.as_view(), name='AddAssignments'),
-    path('assignments/<slug:pk>/', AssignmentListView.as_view(), name='UpdateAssignments'),
+    path('assignments/<slug:pk>/', AssignmentUpdateView.as_view(), name='UpdateAssignments'),
     path('assignments/<slug:pk>/delete/', AssignmentDeleteView.as_view(), name='DeleteAssignments'),
 
     path('bookings/', BookingListView.as_view(), name='Bookings'),

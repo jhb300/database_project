@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from airportx.models import Airport, AirportEmployees, AirportStats
 from django.views.generic import ListView
-from .forms import AirportUpdateForm
 
 @transaction.atomic
 def refresh_materialized():
@@ -15,9 +14,6 @@ def refresh_materialized():
 class AirportListView(ListView):
     model = Airport
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(myfield__is_deleted=False)
 
 class AirportEmployeesListView(ListView):
     model = AirportEmployees
@@ -32,7 +28,7 @@ class AirportCreateView(CreateView):
 class AirportUpdateView(UpdateView):
     model = Airport
     # form_class = AirportUpdateForm
-    fields = ['icao_code', 'name']
+    fields = ['name']
     success_url = reverse_lazy('Airports')
     object_change = refresh_materialized()
 
