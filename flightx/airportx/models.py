@@ -20,11 +20,13 @@ class AirportEmployees(models.Model):
 
     def __str__(self):
         return f"The Airport \"{self.name}\" is the base for {self.num_employees} Employees"
-    
+
+# Simple View 
 class AirportStats(models.Model):
     icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
-    average_delay = models.FloatField("Average Delay")
-    number_flights = models.IntegerField("Number of Flights")
+    avg_delay = models.FloatField("Average Delay")
+    num_flights = models.IntegerField("Number of Flights")
+    num_passengers = models.IntegerField("Number of Passengers")
 
     class Meta:
         managed = False

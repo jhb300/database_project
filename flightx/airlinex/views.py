@@ -1,4 +1,4 @@
-from django import forms
+from django.db import transaction, connection
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView
@@ -11,8 +11,6 @@ from airportx.models import Airport
 from .forms import FlightForm
 
 import pandas as pd
-
-# Create your views here.
 
 class StartpageView(TemplateView):
     template_name = "base.html"
