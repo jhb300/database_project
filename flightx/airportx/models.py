@@ -8,6 +8,14 @@ class Airport(models.Model):
     def get_absolute_url(self):
         return reverse('UpdateAirports', kwargs={'pk': self.pk})
 
+class Runway(models.Model):
+    length = models.IntegerField("Runway length")
+    name = models.CharField("Runway name", max_length=4)
+    airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f"Runway {self.name} at {self.airport}"
+
 # Materialized View
 class AirportEmployees(models.Model):
     icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
