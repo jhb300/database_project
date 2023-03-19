@@ -1,6 +1,4 @@
 from django.db import models
-from django.urls import reverse
-
 from airportx.models import Airport
 
 
@@ -38,9 +36,11 @@ class Aircraft(models.Model):
         ("B73710", "B737-MAX10"),
     ]
 
-    # Model Attributes 
-    registration = models.CharField("Unique aircraft registration", max_length=10, primary_key=True)
-    type_series = models.CharField("Aircraft type series", max_length=10, choices=TYPE_SERIES_CHOICES)
+    # Model Attributes
+    registration = models.CharField(
+        "Unique aircraft registration", max_length=10, primary_key=True)
+    type_series = models.CharField(
+        "Aircraft type series", max_length=10, choices=TYPE_SERIES_CHOICES)
     passenger_capacity = models.IntegerField("Number of passenger seats")
 
     # Class functions
@@ -66,7 +66,7 @@ class Passenger(models.Model):
         customer specific notes such as preferences
     """
 
-    # Customer status options 
+    # Customer status options
     CUSTOMER_STATUS_CHOICES = [
         ("B", "Bronze"),
         ("S", "Silver"),
@@ -74,10 +74,11 @@ class Passenger(models.Model):
         ("P", "Platinum"),
     ]
 
-    # Model Attributes 
+    # Model Attributes
     first_name = models.CharField("First name", max_length=100)
     last_name = models.CharField("Last name", max_length=100, db_index=True)
-    status = models.CharField("Customer status", max_length=20, choices=CUSTOMER_STATUS_CHOICES, default="B")
+    status = models.CharField(
+        "Customer status", max_length=20, choices=CUSTOMER_STATUS_CHOICES, default="B")
     notes = models.TextField("Extra notes", max_length=2000, blank=True)
 
     # Class functions
@@ -106,7 +107,7 @@ class Employee(models.Model):
     spouse : obj
         relationship to the the spouse (Employee) if applicable
     """
-    
+
     # Choices for employee role
     EMPLOYEE_ROLE_CHOICES = [
         ("C", "Captain"),
@@ -115,13 +116,15 @@ class Employee(models.Model):
         ("CC", "Cabin Crew"),
     ]
 
-    # Model Attributes 
+    # Model Attributes
     first_name = models.CharField("First name", max_length=100)
     last_name = models.CharField("Last name", max_length=100, db_index=True)
     email = models.EmailField("Employee mail")
-    role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
+    role = models.CharField("Employee role:", max_length=2,
+                            choices=EMPLOYEE_ROLE_CHOICES)
     based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, null=True)
-    spouse = models.OneToOneField('self', on_delete=models.SET_NULL, related_name='spouse_of', null=True, blank=True)
+    spouse = models.OneToOneField(
+        'self', on_delete=models.SET_NULL, related_name='spouse_of', null=True, blank=True)
 
     # Class functions
     def __str__(self) -> str:
@@ -156,11 +159,14 @@ class Flight(models.Model):
         flight crew as a many to many relationship with Employee through Assignment
     """
 
-    # Model Attributes 
+    # Model Attributes
     number = models.CharField("Flight number", max_length=10, primary_key=True)
-    departure_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departure_airport")
-    destination_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrival_airport")
-    aircraft = models.ForeignKey(Aircraft, on_delete=models.PROTECT, related_name="aircraft")
+    departure_airport = models.ForeignKey(
+        Airport, on_delete=models.CASCADE, related_name="departure_airport")
+    destination_airport = models.ForeignKey(
+        Airport, on_delete=models.CASCADE, related_name="arrival_airport")
+    aircraft = models.ForeignKey(
+        Aircraft, on_delete=models.PROTECT, related_name="aircraft")
 
     departure_time = models.DateTimeField("Departure Date & Time")
     arrival_time = models.DateTimeField("Arrival Date & Time")
@@ -174,7 +180,7 @@ class Flight(models.Model):
         """Return flight duration in minutes"""
 
         return self.arrival_time - self.departure_time
-    
+
     def __str__(self) -> str:
         return f"Flight {self.number} from {self.departure_airport} to {self.destination_airport}"
 
@@ -223,8 +229,9 @@ class Booking(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['flight', 'passenger'], name='flight_passenger_unique')
+            models.UniqueConstraint(
+                fields=['flight', 'passenger'], name='flight_passenger_unique')
         ]
-        
+
     def __str__(self) -> str:
         return f"Passenger {self.passenger.first_name} {self.passenger.last_name} on flight {self.flight.number}"

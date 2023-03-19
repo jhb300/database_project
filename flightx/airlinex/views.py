@@ -46,7 +46,7 @@ class AirportSICheck(View):
         drop_list = ["type", "elevation_ft", "continent", "iso_country", "iso_region", "municipality", "gps_code", "iata_code", "coordinates"]
         df.drop(drop_list, axis=1, inplace=True)
         df.reset_index(inplace=True, drop=True)
-        print(df.head(), df.shape)
+        # print(df.head(), df.shape)
         
         Airport.objects.all().delete()
 
@@ -60,7 +60,7 @@ class AirportSICheck(View):
 
 
         explanation = Airport.objects.filter(name="Epps Airpark").explain(verbose=True, analyze=True)
-        print(explanation)
+        # print(explanation)
         num_airports = Airport.objects.all().count()
         return HttpResponse(f'The explan for lookup out of {num_airports} airports: \n{explanation}')
 
