@@ -43,11 +43,11 @@ COPY public.airportx_runway (id, length, name, airport_id) FROM stdin;
 -- Data for Name: airlinex_employee; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.airlinex_employee (id, first_name, last_name, email, role, based_in_id) FROM stdin;
-1	Jürgen	Raps	raps@lufthansa.com	C	EDDF
-2	Joong Gi	Joost	joost@lufthansa.com	FO	EDDM
-3	Janine	Neumann	neumann@lufthansa.com	CC	EDDF
-4	Tobias	Reuter	treuter@lufthansa.com	CC	EDDM
+COPY public.airlinex_employee (id, first_name, last_name, email, role, based_in_id, spouse_id) FROM stdin;
+1	Jürgen	Raps	raps@lufthansa.com	C	EDDF    null
+2	Joong Gi	Joost	joost@lufthansa.com	FO	EDDM    null
+3	Janine	Neumann	neumann@lufthansa.com	CC	EDDF    4
+4	Tobias	Reuter	treuter@lufthansa.com	CC	EDDM    3
 \.
 
 

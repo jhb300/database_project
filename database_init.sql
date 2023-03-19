@@ -39,12 +39,12 @@ VALUES
 ('EDDM', 'Munich Airport'),
 ('KJFK', 'John F. Kennedy International Airport');
 
-INSERT INTO public.airlinex_employee (id, first_name, last_name, email, role, based_in_id)
+INSERT INTO public.airlinex_employee (id, first_name, last_name, email, role, based_in_id, spouse_id)
 VALUES 
-(1, 'Jürgen', 'Raps', 'raps@lufthansa.com', 'C', 'EDDF'),
-(2, 'Joong Gi', 'Joost', 'joost@lufthansa.com', 'FO', 'EDDM'),
-(3, 'Janine', 'Neumann', 'neumann@lufthansa.com', 'CC', 'EDDF'),
-(4, 'Tobias', 'Reuter', 'treuter@lufthansa.com', 'CC', 'EDDM');
+(1, 'Jürgen', 'Raps', 'raps@lufthansa.com', 'C', 'EDDF', null),
+(2, 'Joong Gi', 'Joost', 'joost@lufthansa.com', 'FO', 'EDDM', null),
+(3, 'Janine', 'Neumann', 'neumann@lufthansa.com', 'CC', 'EDDF', 4),
+(4, 'Tobias', 'Reuter', 'treuter@lufthansa.com', 'CC', 'EDDM', 3);
 
 INSERT INTO public.airlinex_flight (number, departure_time, arrival_time, delay, cancelled, aircraft_id, departure_airport_id, destination_airport_id)
 VALUES 
