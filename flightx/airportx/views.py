@@ -42,16 +42,18 @@ def AirportDetailView(request, pk):
         'num_flights': 0,
         'num_passengers': 0,
     }
+
+    runways = Runway.objects.filter(airport=pk)
+
     try:
         airport_info = get_object_or_404(AirportEmployees, pk=pk)
         airport_stats = get_object_or_404(AirportStats, pk=pk)
-        print(airport_stats)
     except Exception:
         print('failed to get airport stats')
     return render(
         request, 
         'airportx/airportemployees_list.html', 
-        {'airport_info': airport_info, 'airport_stats': airport_stats}
+        {'airport_info': airport_info, 'airport_stats': airport_stats, 'runways': runways}
     )
 
 
