@@ -18,6 +18,26 @@ KJFK	John F. Kennedy International Airport
 
 
 --
+-- TOC entry 3394 (class 0 OID 90379)
+-- Dependencies: 247
+-- Data for Name: airportx_runway; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.airportx_runway (id, length, name, airport_id) FROM stdin;
+1	3343	07L	EDDF
+2	3343	07C	EDDF
+3	4231	18	EDDF
+4	2560	04R	KJFK
+5	3682	04L	KJFK
+6	2560	22L	KJFK
+7	3682	22R	KJFK
+8	4231	36	EDDF
+9	3343	25L	EDDF
+10	3343	25R	EDDF
+\.
+
+
+--
 -- TOC entry 3520 (class 0 OID 66213)
 -- Dependencies: 237
 -- Data for Name: airlinex_employee; Type: TABLE DATA; Schema: public; Owner: postgres

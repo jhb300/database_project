@@ -625,6 +625,16 @@ KJFK	John F. Kennedy International Airport
 --
 
 COPY public.airportx_runway (id, length, name, airport_id) FROM stdin;
+1	3343	07L	EDDF
+2	3343	07C	EDDF
+3	4231	18	EDDF
+4	2560	04R	KJFK
+5	3682	04L	KJFK
+6	2560	22L	KJFK
+7	3682	22R	KJFK
+8	4231	36	EDDF
+9	3343	25L	EDDF
+10	3343	25R	EDDF
 \.
 
 
