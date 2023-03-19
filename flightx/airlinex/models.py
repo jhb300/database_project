@@ -5,6 +5,26 @@ from airportx.models import Airport
 
 
 class Aircraft(models.Model):
+    """
+    A class used to represent an Aircrafts
+
+    ...
+
+    Attributes
+    ----------
+    registration : str
+        the unique aircraft registration
+    type_series : str
+        the type of aircraft
+    passenger_capacity : int
+        number of passengers the aircraft can carry
+
+    Methods
+    -------
+    get_absolute_url()
+        returns the url to a specific aircraft object
+    """
+    # Choices for different Aircraft types
     TYPE_SERIES_CHOICES = [
         ("A388", "A380-800"),
         ("A358", "A350-800"),
@@ -22,7 +42,6 @@ class Aircraft(models.Model):
         ("B73710", "B737-MAX10"),
     ]
 
-    # TODO: Implement check whether Registration is like D-A___
     registration = models.CharField("Unique aircraft registration", max_length=10, primary_key=True)
     type_series = models.CharField("Aircraft type series", max_length=10, choices=TYPE_SERIES_CHOICES)
     passenger_capacity = models.IntegerField("Number of passenger seats")
@@ -30,8 +49,8 @@ class Aircraft(models.Model):
     def __str__(self) -> str:
         return f"{self.get_type_series_display()} ({self.registration})"
 
-    def get_absolute_url(self):
-        return reverse('UpdateAircraft', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('UpdateAircraft', kwargs={'pk': self.pk})
 
 
 class Passenger(models.Model):
