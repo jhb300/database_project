@@ -66,7 +66,8 @@ class Employee(models.Model):
     last_name = models.CharField("Last name", max_length=100, db_index=True)
     email = models.EmailField("Employee mail")
     role = models.CharField("Employee role:", max_length=2, choices=EMPLOYEE_ROLE_CHOICES)
-    based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, related_name="based_in", null=True)
+    based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, null=True)
+    spouse = models.OneToOneField('self', on_delete=models.SET_NULL, related_name='spouse_of', null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"

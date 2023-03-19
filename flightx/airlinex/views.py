@@ -106,13 +106,31 @@ class EmployeeListView(ListView):
 
 class EmployeeCreateView(CreateView):
     model = Employee
-    fields = ['first_name', 'last_name', 'email', 'role', 'based_in']
+    fields = ['first_name', 'last_name', 'email', 'role', 'based_in', 'spouse']
     success_url = reverse_lazy('Employees')
 
 class EmployeeUpdateView(UpdateView):
     model = Employee
-    fields = ['first_name', 'last_name', 'email', 'role', 'based_in']
+    fields = ['first_name', 'last_name', 'email', 'role', 'based_in', 'spouse']
     success_url = reverse_lazy('Employees')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # If the employee has a spouse and the spouse has a different spouse, update the spouse's spouse field
+        if self.object.spouse and self.object.spouse.spouse != self.object:
+            self.object.spouse.spouse = self.object
+            self.object.spouse.save()
+
+        # If the spouse is also an employee and has a different spouse, update the spouse's spouse field
+        spouse_of = self.object.spouse_of
+        if spouse_of and spouse_of.spouse != self.object:
+            spouse_of.spouse.spouse = None
+            spouse_of.spouse = self.object
+            spouse_of.save()
+
+        return response
+
 
 class EmployeeDeleteView(DeleteView):
     model = Employee
