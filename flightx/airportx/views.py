@@ -11,6 +11,7 @@ def refresh_materialized():
         cursor.execute("REFRESH MATERIALIZED VIEW airport_and_based_crew;")
         transaction.commit()
 
+
 # Airport
 class AirportListView(ListView):
     model = Airport
@@ -25,14 +26,17 @@ class AirportCreateView(CreateView):
     fields = ['icao_code', 'name']
     success_url = reverse_lazy('Airports')
 
+
 class AirportUpdateView(UpdateView):
     model = Airport
     fields = ['name']
     success_url = reverse_lazy('Airports')
 
+
 class AirportDeleteView(DeleteView):
     model = Airport
     success_url = reverse_lazy('Airports')
+
 
 def AirportDetailView(request, pk):
     refresh_materialized()
@@ -51,9 +55,10 @@ def AirportDetailView(request, pk):
     except Exception:
         print('failed to get airport stats')
     return render(
-        request, 
-        'airportx/airportemployees_list.html', 
-        {'airport_info': airport_info, 'airport_stats': airport_stats, 'runways': runways}
+        request,
+        'airportx/airportemployees_list.html',
+        {'airport_info': airport_info,
+            'airport_stats': airport_stats, 'runways': runways}
     )
 
 
@@ -61,15 +66,18 @@ def AirportDetailView(request, pk):
 class RunwayListView(ListView):
     model = Runway
 
+
 class RunwayCreateView(CreateView):
     model = Runway
     fields = ['airport', 'name', 'length']
     success_url = reverse_lazy('Runways')
 
+
 class RunwayUpdateView(UpdateView):
     model = Runway
     fields = ['name', 'length']
     success_url = reverse_lazy('Runways')
+
 
 class RunwayDeleteView(DeleteView):
     model = Runway

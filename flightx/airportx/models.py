@@ -13,9 +13,10 @@ class Airport(models.Model):
         the publicly used name of the airport
     """
 
-    icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
+    icao_code = models.CharField(
+        "Unique ICAO airport code", max_length=4, primary_key=True)
     name = models.CharField("Airport name", max_length=100, db_index=True)
-    
+
     def __str__(self) -> str:
         return f"{self.name} ({self.icao_code})"
 
@@ -58,7 +59,8 @@ class AirportEmployees(models.Model):
         the number of employees based on an airport
     """
 
-    icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
+    icao_code = models.CharField(
+        "Unique ICAO airport code", max_length=4, primary_key=True)
     name = models.CharField("Airport name", max_length=100, db_index=True)
     num_employees = models.IntegerField("Number of Employees")
 
@@ -88,7 +90,8 @@ class AirportStats(models.Model):
         the number of passengers that are arriving or departing from the specified airport
     """
 
-    icao_code = models.CharField("Unique ICAO airport code", max_length=4, primary_key=True)
+    icao_code = models.CharField(
+        "Unique ICAO airport code", max_length=4, primary_key=True)
     avg_delay = models.FloatField("Average Delay")
     num_flights = models.IntegerField("Number of Flights")
     num_passengers = models.IntegerField("Number of Passengers")
@@ -99,5 +102,3 @@ class AirportStats(models.Model):
 
     def __str__(self):
         return f"ICAO: {self.icao_code}, Delay: {self.average_delay}, Flights: {self.number_flights}"
-
-

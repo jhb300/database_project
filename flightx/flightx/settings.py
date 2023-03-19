@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'flightx.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'flightx_db', 
+        'NAME': 'flightx_db',
         'USER': 'postgres',
         'PASSWORD': 'superuser',
-        'HOST': '127.0.0.1', 
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
