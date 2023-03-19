@@ -6,8 +6,6 @@ class Aircraft(models.Model):
     """
     A class used to represent an aircrafts
 
-    ...
-
     Attributes
     ----------
     registration : str
@@ -52,8 +50,6 @@ class Passenger(models.Model):
     """
     A class used to represent passengers
 
-    ...
-
     Attributes
     ----------
     first_name : str
@@ -89,8 +85,6 @@ class Passenger(models.Model):
 class Employee(models.Model):
     """
     A class used to represent employees
-
-    ...
 
     Attributes
     ----------
@@ -133,9 +127,7 @@ class Employee(models.Model):
 
 class Flight(models.Model):
     """
-    A class used to represent employees
-
-    ...
+    A class used to represent flights
 
     Attributes
     ----------
@@ -187,46 +179,49 @@ class Flight(models.Model):
 
 class Assignment(models.Model):
     """
-    A class used to represent assignment
-
-    ...
+    A class used to represent assignment of employees to flights
 
     Attributes
     ----------
-    number : str
-        the flight number
-    departure_airport : obj
-        relationship to the departure airport
-    destination_airport : obj
-        relationship to the destination airport 
-    aircraft : obj
-        relationship to the aircraft for the flight
-    departure_time : obj
-        time the aircraft is sceduled to depart the departure_airport
-    arrival_time : obj
-        time the aircraft is sceduled to arrive at the destination_airport
-    delay : int
-        the delay of the flight in minutes
-    cancelled : bool
-        the cancelled status of the flight
-    employees : obj
-        flight crew as a many to many relationship with Employee through Assignment
+    employee : obj
+        relationship to the employee assigned
+    flight : obj
+        relationship to the flight the employee was assigned to 
     """
 
+    # Model Attributes 
     # Cannot delete Employee without replacement for assigments
     employee = models.ForeignKey(Employee, on_delete=models.PROTECT)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
 
+    # Class functions
     def __str__(self) -> str:
         return f"Employee {self.employee.first_name} {self.employee.last_name} on flight {self.flight.number}"
 
 
 class Booking(models.Model):
+    """
+    A class used to represent flights bookings of passenger
+
+    Attributes
+    ----------
+    flight : obj
+        relationship to the booked flight
+    passenger : obj
+        relationship to the passenger who booked the flight 
+    time : obj
+        the time the booking was made
+    cancelled : obj
+        set to true if the respective flight was canceled (sql procedure)
+    """
+
+    # Model Attributes 
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     time = models.DateTimeField("Creation time of booking", auto_now_add=True)
     cancelled = models.BooleanField("Cancelation status", default=False)
 
+    # Uniqueness contrains to prevent one customer booking the same flight twice
     class Meta:
         constraints = [
             models.UniqueConstraint(
