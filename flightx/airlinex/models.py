@@ -49,9 +49,6 @@ class Aircraft(models.Model):
     def __str__(self) -> str:
         return f"{self.get_type_series_display()} ({self.registration})"
 
-    # def get_absolute_url(self):
-    #     return reverse('UpdateAircraft', kwargs={'pk': self.pk})
-
 
 class Passenger(models.Model):
     CUSTOMER_STATUS_CHOICES = [
@@ -68,9 +65,6 @@ class Passenger(models.Model):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
-
-    def get_absolute_url(self):
-        return reverse('UpdatePassengers', kwargs={'pk': self.pk})
 
 
 class Employee(models.Model):
@@ -90,9 +84,6 @@ class Employee(models.Model):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
-
-    def get_absolute_url(self):
-        return reverse('UpdateEmployees', kwargs={'pk': self.pk})
 
 
 class Flight(models.Model):
@@ -116,9 +107,6 @@ class Flight(models.Model):
     def __str__(self) -> str:
         return f"Flight {self.number} from {self.departure_airport} to {self.destination_airport}"
 
-    def get_absolute_url(self):
-        return reverse('UpdateFlights', kwargs={'pk': self.pk})
-
 
 class Assignment(models.Model):
     # Cannot delete Employee without replacement for assigments
@@ -127,9 +115,6 @@ class Assignment(models.Model):
 
     def __str__(self) -> str:
         return f"Employee {self.employee.first_name} {self.employee.last_name} on flight {self.flight.number}"
-
-    def get_absolute_url(self):
-        return reverse('UpdateAssignments', kwargs={'pk': self.pk})
 
 
 class Booking(models.Model):
@@ -145,6 +130,3 @@ class Booking(models.Model):
         
     def __str__(self) -> str:
         return f"Passenger {self.passenger.first_name} {self.passenger.last_name} on flight {self.flight.number}"
-
-    def get_absolute_url(self):
-        return reverse('UpdateBookings', kwargs={'pk': self.pk})
