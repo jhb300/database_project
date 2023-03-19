@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import transaction, connection
 from django.http import HttpResponse
 from django.views import View
@@ -117,14 +118,29 @@ class EmployeeUpdateView(UpdateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         
+        # Prevent user from marrying himself.
+        # TODO: Not working yet
+        if self.object.spouse == self.object:
+            form.add_error('spouse', 'Self-marriage is not allowed.')
+            return response
+
+        # In case the spouse is updated to a new one, we want to remove the currently employee from the former spouse first.
+        # Handle case of divorce: New spouse is set to None.
+        if (hasattr(self.object, 'spouse_of') and self.object.spouse != self.object.spouse_of) | (hasattr(self.object, 'spouse_of') and not self.object.spouse):
+            old_spouse = Employee.objects.get(pk=self.object.spouse_of.pk)
+            old_spouse.spouse = None
+            old_spouse.save()
+        
         # If the employee has a spouse and the spouse has a different spouse, update the spouse's spouse field
+        # Also set the spouse field of the spouse's spouse to none.
         if self.object.spouse and self.object.spouse.spouse != self.object:
+            # If the new spouse has another spouse already, reset the spouse attribute of the new spouse's spouse
             self.object.spouse.spouse = self.object
             self.object.spouse.save()
 
         # If the spouse is also an employee and has a different spouse, update the spouse's spouse field
-        spouse_of = self.object.spouse_of
-        if spouse_of and spouse_of.spouse != self.object:
+        if hasattr(self.object, 'spouse_of') and self.object.spouse_of.spouse != self.object:
+            spouse_of = self.object.spouse_of
             spouse_of.spouse.spouse = None
             spouse_of.spouse = self.object
             spouse_of.save()
