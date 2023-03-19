@@ -7,6 +7,9 @@ class Airport(models.Model):
 
     def get_absolute_url(self):
         return reverse('UpdateAirports', kwargs={'pk': self.pk})
+    
+    def __str__(self) -> str:
+        return f"{self.name} ({self.icao_code})"
 
 class Runway(models.Model):
     length = models.IntegerField("Runway length")
