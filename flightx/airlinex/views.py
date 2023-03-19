@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 from .models import Aircraft, Assignment, Booking, Employee, Flight, Passenger
 from airportx.models import Airport
-from .forms import FlightForm
+from .forms import FlightForm, EmployeeForm
 
 import pandas as pd
 
@@ -110,19 +110,31 @@ class EmployeeCreateView(CreateView):
     fields = ['first_name', 'last_name', 'email', 'role', 'based_in', 'spouse']
     success_url = reverse_lazy('Employees')
 
-class EmployeeUpdateView(UpdateView):
-    model = Employee
-    fields = ['first_name', 'last_name', 'email', 'role', 'based_in', 'spouse']
-    success_url = reverse_lazy('Employees')
-
     def form_valid(self, form):
         response = super().form_valid(form)
         
-        # Prevent user from marrying himself.
-        # TODO: Not working yet
-        if self.object.spouse == self.object:
-            form.add_error('spouse', 'Self-marriage is not allowed.')
-            return response
+        # If the employee has a spouse and the spouse has a different spouse, update the spouse's spouse field
+        # Also set the spouse field of the spouse's spouse to none.
+        if self.object.spouse and self.object.spouse.spouse != self.object:
+            # If the new spouse has another spouse already, reset the spouse attribute of the new spouse's spouse
+            self.object.spouse.spouse = self.object
+            self.object.spouse.save()
+
+        return response
+
+
+class EmployeeUpdateView(UpdateView):
+    model = Employee
+    success_url = reverse_lazy('Employees')
+    form_class = EmployeeForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['current_employee'] = self.object
+        return kwargs
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
 
         # In case the spouse is updated to a new one, we want to remove the currently employee from the former spouse first.
         # Handle case of divorce: New spouse is set to None.
