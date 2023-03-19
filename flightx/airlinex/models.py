@@ -6,7 +6,7 @@ from airportx.models import Airport
 
 class Aircraft(models.Model):
     """
-    A class used to represent an Aircrafts
+    A class used to represent an aircrafts
 
     ...
 
@@ -18,12 +18,8 @@ class Aircraft(models.Model):
         the type of aircraft
     passenger_capacity : int
         number of passengers the aircraft can carry
-
-    Methods
-    -------
-    get_absolute_url()
-        returns the url to a specific aircraft object
     """
+
     # Choices for different Aircraft types
     TYPE_SERIES_CHOICES = [
         ("A388", "A380-800"),
@@ -42,15 +38,35 @@ class Aircraft(models.Model):
         ("B73710", "B737-MAX10"),
     ]
 
+    # Model Attributes 
     registration = models.CharField("Unique aircraft registration", max_length=10, primary_key=True)
     type_series = models.CharField("Aircraft type series", max_length=10, choices=TYPE_SERIES_CHOICES)
     passenger_capacity = models.IntegerField("Number of passenger seats")
 
+    # Class functions
     def __str__(self) -> str:
         return f"{self.get_type_series_display()} ({self.registration})"
 
 
 class Passenger(models.Model):
+    """
+    A class used to represent passengers
+
+    ...
+
+    Attributes
+    ----------
+    first_name : str
+        the first name of the customer
+    last_name : str
+        the last name of the customer
+    status : str
+        the customer status (Bronze, Silver, Gold, Platinum)
+    notes : str
+        customer specific notes such as preferences
+    """
+
+    # Customer status options 
     CUSTOMER_STATUS_CHOICES = [
         ("B", "Bronze"),
         ("S", "Silver"),
@@ -58,16 +74,40 @@ class Passenger(models.Model):
         ("P", "Platinum"),
     ]
 
+    # Model Attributes 
     first_name = models.CharField("First name", max_length=100)
     last_name = models.CharField("Last name", max_length=100, db_index=True)
     status = models.CharField("Customer status", max_length=20, choices=CUSTOMER_STATUS_CHOICES, default="B")
     notes = models.TextField("Extra notes", max_length=2000, blank=True)
 
+    # Class functions
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
 
 class Employee(models.Model):
+    """
+    A class used to represent employees
+
+    ...
+
+    Attributes
+    ----------
+    first_name : str
+        the first name of the employee
+    last_name : str
+        the last name of the employee
+    email : str
+        the employee email address 
+    role : str
+        the role of the employee 
+    based_in : obj
+        relationship to the airport (Airport) the employee is based at
+    spouse : obj
+        relationship to the the spouse (Employee) if applicable
+    """
+    
+    # Choices for employee role
     EMPLOYEE_ROLE_CHOICES = [
         ("C", "Captain"),
         ("FO", "First Officer"),
@@ -75,6 +115,7 @@ class Employee(models.Model):
         ("CC", "Cabin Crew"),
     ]
 
+    # Model Attributes 
     first_name = models.CharField("First name", max_length=100)
     last_name = models.CharField("Last name", max_length=100, db_index=True)
     email = models.EmailField("Employee mail")
@@ -82,11 +123,40 @@ class Employee(models.Model):
     based_in = models.ForeignKey(Airport, on_delete=models.SET_NULL, null=True)
     spouse = models.OneToOneField('self', on_delete=models.SET_NULL, related_name='spouse_of', null=True, blank=True)
 
+    # Class functions
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
 
 class Flight(models.Model):
+    """
+    A class used to represent employees
+
+    ...
+
+    Attributes
+    ----------
+    number : str
+        the flight number
+    departure_airport : obj
+        relationship to the departure airport
+    destination_airport : obj
+        relationship to the destination airport 
+    aircraft : obj
+        relationship to the aircraft for the flight
+    departure_time : obj
+        time the aircraft is sceduled to depart the departure_airport
+    arrival_time : obj
+        time the aircraft is sceduled to arrive at the destination_airport
+    delay : int
+        the delay of the flight in minutes
+    cancelled : bool
+        the cancelled status of the flight
+    employees : obj
+        flight crew as a many to many relationship with Employee through Assignment
+    """
+
+    # Model Attributes 
     number = models.CharField("Flight number", max_length=10, primary_key=True)
     departure_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departure_airport")
     destination_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrival_airport")
@@ -99,6 +169,7 @@ class Flight(models.Model):
 
     employees = models.ManyToManyField(Employee, through='Assignment')
 
+    # Class functions
     def get_duration(self) -> int:
         """Return flight duration in minutes"""
 
@@ -109,6 +180,33 @@ class Flight(models.Model):
 
 
 class Assignment(models.Model):
+    """
+    A class used to represent assignment
+
+    ...
+
+    Attributes
+    ----------
+    number : str
+        the flight number
+    departure_airport : obj
+        relationship to the departure airport
+    destination_airport : obj
+        relationship to the destination airport 
+    aircraft : obj
+        relationship to the aircraft for the flight
+    departure_time : obj
+        time the aircraft is sceduled to depart the departure_airport
+    arrival_time : obj
+        time the aircraft is sceduled to arrive at the destination_airport
+    delay : int
+        the delay of the flight in minutes
+    cancelled : bool
+        the cancelled status of the flight
+    employees : obj
+        flight crew as a many to many relationship with Employee through Assignment
+    """
+
     # Cannot delete Employee without replacement for assigments
     employee = models.ForeignKey(Employee, on_delete=models.PROTECT)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
